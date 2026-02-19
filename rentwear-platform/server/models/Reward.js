@@ -4,3 +4,5 @@ const rewardSchema = new mongoose.Schema({
     points: { type: Number, required: true , default: 0},
     description: String
 }, { timestamps: true });
+
+module.exports = mongoose.model('Reward', rewardSchema);
