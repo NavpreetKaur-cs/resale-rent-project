@@ -5,9 +5,27 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use('/uploads', express.static('uploads'));
+
+const authRoutes = require('./routes/authRoutes');
+const clothingRoutes = require('./routes/clothingRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+
+app.use('/api/auth', authRoutes);
+app.use('/api/clothing', clothingRoutes);
+app.use('/api/orders', orderRoutes);
+
 
 app.get('/', (req, res) => {
-  res.send('API is running...');
+    res.send('API is running...');
 });
+
+const { notFound, errorHandler } = require('./middleware/errorMiddleware');
+
+// After all routes
+app.use(notFound);
+app.use(errorHandler);
+
+const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 module.exports = app;
