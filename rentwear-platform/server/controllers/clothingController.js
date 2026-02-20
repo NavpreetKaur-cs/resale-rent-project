@@ -1,10 +1,20 @@
 const Clothing = require('../models/Clothing');
+const mongoose = require('mongoose');
+
+// Check database connection
+const isDBConnected = () => {
+    return mongoose.connection.readyState === 1;
+};
 
 // @desc    Get all clothing items
 // @route   GET /api/clothing
 // @access  Public
 const getAllClothing = async (req, res) => {
     try {
+        if (!isDBConnected()) {
+            return res.status(503).json({ message: 'Database not connected. Please try again later.' });
+        }
+
         const { category, type, maxPrice, minPrice } = req.query;
 
         let filter = {};
@@ -26,6 +36,10 @@ const getAllClothing = async (req, res) => {
 // @access  Public
 const getClothingById = async (req, res) => {
     try {
+        if (!isDBConnected()) {
+            return res.status(503).json({ message: 'Database not connected. Please try again later.' });
+        }
+
         const clothing = await Clothing.findById(req.params.id).populate('seller', 'name location rating');
         if (!clothing) return res.status(404).json({ message: 'Clothing not found' });
         res.json(clothing);
@@ -39,6 +53,10 @@ const getClothingById = async (req, res) => {
 // @access  Protected
 const addClothing = async (req, res) => {
     try {
+        if (!isDBConnected()) {
+            return res.status(503).json({ message: 'Database not connected. Please try again later.' });
+        }
+
         const { title, category, type, price, deposit, description, size, brand, condition, images } = req.body;
 
         // Rental restrictions
@@ -72,6 +90,10 @@ const addClothing = async (req, res) => {
 // @access  Protected (seller only)
 const updateClothing = async (req, res) => {
     try {
+        if (!isDBConnected()) {
+            return res.status(503).json({ message: 'Database not connected. Please try again later.' });
+        }
+
         const clothing = await Clothing.findById(req.params.id);
         if (!clothing) return res.status(404).json({ message: 'Clothing not found' });
 
@@ -99,6 +121,10 @@ const updateClothing = async (req, res) => {
 // @access  Protected (seller only)
 const deleteClothing = async (req, res) => {
     try {
+        if (!isDBConnected()) {
+            return res.status(503).json({ message: 'Database not connected. Please try again later.' });
+        }
+
         const clothing = await Clothing.findById(req.params.id);
         if (!clothing) return res.status(404).json({ message: 'Clothing not found' });
 
@@ -106,7 +132,7 @@ const deleteClothing = async (req, res) => {
             return res.status(403).json({ message: 'Not authorized to delete this item' });
         }
 
-        await clothing.remove();
+        await Clothing.findByIdAndDelete(req.params.id);
         res.json({ message: 'Clothing item deleted' });
     } catch (error) {
         res.status(500).json({ message: 'Failed to delete clothing item' });

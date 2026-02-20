@@ -1,11 +1,21 @@
 const Order = require('../models/Order');
 const Clothing = require('../models/Clothing');
+const mongoose = require('mongoose');
+
+// Check database connection
+const isDBConnected = () => {
+    return mongoose.connection.readyState === 1;
+};
 
 // @desc    Place order (resale or rental)
 // @route   POST /api/orders
 // @access  Protected
 const placeOrder = async (req, res) => {
     try {
+        if (!isDBConnected()) {
+            return res.status(503).json({ message: 'Database not connected. Please try again later.' });
+        }
+
         const { productId, orderType, rentalDays } = req.body;
 
         const product = await Clothing.findById(productId);
@@ -57,6 +67,10 @@ const placeOrder = async (req, res) => {
 // @access  Protected
 const getUserOrders = async (req, res) => {
     try {
+        if (!isDBConnected()) {
+            return res.status(503).json({ message: 'Database not connected. Please try again later.' });
+        }
+
         const orders = await Order.find({ buyer: req.user._id }).populate('product');
         res.json(orders);
     } catch (error) {
@@ -69,6 +83,10 @@ const getUserOrders = async (req, res) => {
 // @access  Protected
 const updateOrderStatus = async (req, res) => {
     try {
+        if (!isDBConnected()) {
+            return res.status(503).json({ message: 'Database not connected. Please try again later.' });
+        }
+
         const { status } = req.body;
         const order = await Order.findById(req.params.id).populate('product');
 

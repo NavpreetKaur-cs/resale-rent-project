@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - ReVogue</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h2>ReVogue</h2>
+            </div>
+            <div class="nav-search">
+                <input type="text" placeholder="Search for clothing..." id="searchBar">
+                <button id="searchBtn">Search</button>
+            </div>
+            <div class="nav-auth">
+                <button onclick="window.location.href='index.html'">Home</button>
+                <button onclick="window.location.href='login.html'">Sign In</button>
+                <button onclick="window.location.href='register.html'">Sign Up</button>
+                <button onclick="window.location.href='profile.html'">Profile</button>
+                <button onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="profile-container">
+            <h2>My Profile</h2>
+            <div id="profileInfo">
+                <div class="loading">Loading profile...</div>
+            </div>
+            <div class="profile-actions">
+                <button onclick="window.location.href='rent.html'">Browse Rentals</button>
+                <button onclick="window.location.href='resale.html'">Browse Resale</button>
+                <button id="addItemBtn">Add Item for Sale/Rent</button>
+            </div>
+        </div>
+    </main>
+    <script src="js/auth.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>

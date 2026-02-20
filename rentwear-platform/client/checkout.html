@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - ReVogue</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h2>ReVogue</h2>
+            </div>
+            <div class="nav-search">
+                <input type="text" placeholder="Search for clothing..." id="searchBar">
+                <button id="searchBtn">Search</button>
+            </div>
+            <div class="nav-auth">
+                <button onclick="window.location.href='index.html'">Home</button>
+                <button onclick="window.location.href='login.html'">Sign In</button>
+                <button onclick="window.location.href='register.html'">Sign Up</button>
+                <button onclick="window.location.href='profile.html'">Profile</button>
+                <button onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="checkout-container">
+            <h2>Checkout</h2>
+            <div id="checkoutForm">
+                <!-- Checkout form will be loaded here -->
+            </div>
+        </div>
+    </main>
+    <script src="js/auth.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent Clothing - ReVogue</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/rent.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h2>ReVogue</h2>
+            </div>
+            <div class="nav-search">
+                <input type="text" placeholder="Search for clothing..." id="searchBar">
+                <button id="searchBtn">Search</button>
+            </div>
+            <div class="nav-auth">
+                <button onclick="window.location.href='index.html'">Home</button>
+                <button onclick="window.location.href='login.html'">Sign In</button>
+                <button onclick="window.location.href='register.html'">Sign Up</button>
+                <button onclick="window.location.href='profile.html'">Profile</button>
+                <button onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="rent-container">
+            <h2>Rent Clothing</h2>
+            <div class="filters">
+                <select id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="ethnic">Ethnic</option>
+                    <option value="wedding">Wedding</option>
+                </select>
+                <input type="number" id="maxPrice" placeholder="Max Price">
+                <button id="applyFilters">Apply Filters</button>
+            </div>
+            <div id="clothingList" class="clothing-grid">
+                <div class="loading">Loading rental items...</div>
+            </div>
+        </div>
+    </main>
+    <script src="js/auth.js"></script>
+    <script src="js/rent.js"></script>
+</body>
+</html>

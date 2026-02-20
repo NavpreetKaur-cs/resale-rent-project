@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register for ReVogue</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h2>ReVogue</h2>
+            </div>
+            <div class="nav-search">
+                <input type="text" placeholder="Search for clothing..." id="searchBar">
+                <button id="searchBtn">Search</button>
+            </div>
+            <div class="nav-auth">
+                <button class="btn-secondary" onclick="window.location.href='index.html'">Home</button>
+                <button class="btn-secondary" onclick="window.location.href='login.html'">Sign In</button>
+                <button class="btn-primary" onclick="window.location.href='register.html'">Sign Up</button>
+            </div>
+        </div>
+    </nav>
+    <div class="login-container">
+        <h2>Register for ReVogue</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="login.html">Login</a></p>
+        <div id="message"></div>
+    </div>
+    <script src="js/auth.js"></script>
+</body>
+</html>

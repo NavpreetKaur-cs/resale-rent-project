@@ -1,6 +1,12 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
+
+// Check database connection
+const isDBConnected = () => {
+    return mongoose.connection.readyState === 1;
+};
 
 // Generate JWT Token
 const generateToken = (id) => {
@@ -14,6 +20,10 @@ const generateToken = (id) => {
 // @access  Public
 const registerUser = async (req, res) => {
     try {
+        if (!isDBConnected()) {
+            return res.status(503).json({ message: 'Database not connected. Please try again later.' });
+        }
+
         const { name, email, password } = req.body;
 
         if (!name || !email || !password) {
@@ -54,6 +64,10 @@ const registerUser = async (req, res) => {
 // @access  Public
 const loginUser = async (req, res) => {
     try {
+        if (!isDBConnected()) {
+            return res.status(503).json({ message: 'Database not connected. Please try again later.' });
+        }
+
         const { email, password } = req.body;
 
         const user = await User.findOne({ email });
@@ -79,6 +93,10 @@ const loginUser = async (req, res) => {
 // @access  Private
 const getProfile = async (req, res) => {
     try {
+        if (!isDBConnected()) {
+            return res.status(503).json({ message: 'Database not connected. Please try again later.' });
+        }
+
         const user = await User.findById(req.user._id).select('-password');
         if (!user) return res.status(404).json({ message: 'User not found' });
 
