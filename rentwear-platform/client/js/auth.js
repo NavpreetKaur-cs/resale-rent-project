@@ -148,3 +148,26 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
+// Function to update navigation buttons based on login status
+function updateNavButtons() {
+    const signinBtn = document.getElementById('signin-btn');
+    const signupBtn = document.getElementById('signup-btn');
+    const profileBtn = document.getElementById('profile-btn');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    if (isLoggedIn()) {
+        if (signinBtn) signinBtn.style.display = 'none';
+        if (signupBtn) signupBtn.style.display = 'none';
+        if (profileBtn) profileBtn.style.display = 'inline-block';
+        if (logoutBtn) logoutBtn.style.display = 'inline-block';
+    } else {
+        if (signinBtn) signinBtn.style.display = 'inline-block';
+        if (signupBtn) signupBtn.style.display = 'inline-block';
+        if (profileBtn) profileBtn.style.display = 'none';
+        if (logoutBtn) logoutBtn.style.display = 'none';
+    }
+}
+
+// Call updateNavButtons on page load
+document.addEventListener('DOMContentLoaded', updateNavButtons);

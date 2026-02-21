@@ -18,9 +18,11 @@
                 <button id="searchBtn">Search</button>
             </div>
             <div class="nav-auth">
-                <button class="btn-secondary" onclick="window.location.href='index.html'">Home</button>
-                <button class="btn-secondary" onclick="window.location.href='login.html'">Sign In</button>
-                <button class="btn-primary" onclick="window.location.href='register.html'">Sign Up</button>
+                <button onclick="window.location.href='index.html'">Home</button>
+                <button id="signin-btn" onclick="window.location.href='login.html'">Sign In</button>
+                <button id="signup-btn" onclick="window.location.href='register.html'">Sign Up</button>
+                <button id="profile-btn" onclick="window.location.href='profile.html'">Profile</button>
+                <button id="logout-btn" onclick="logout()">Logout</button>
             </div>
         </div>
     </nav>
@@ -35,7 +37,7 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="Enter your password" required>
             </div>
-            <button type="submit">Login</button>
+            <button type="submit" onclick="login()">Login</button>
         </form>
         <p>Don't have an account? <a href="register.html">Sign up</a></p>
         <div id="message"></div>

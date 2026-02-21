@@ -15,7 +15,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/clothing', clothingRoutes);
 app.use('/api/orders', orderRoutes);
 
-// Serve index.html for root route
+
 
 app.get('/', (req, res) => {
   res.send('API Running...');
