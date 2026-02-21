@@ -7,7 +7,6 @@ const {
   updateClothing,
   deleteClothing
 } = require('../controllers/clothingController');
-
 const { protect } = require('../middleware/authMiddleware');
 
 // Public

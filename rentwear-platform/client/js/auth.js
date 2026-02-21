@@ -1,9 +1,10 @@
 // Authentication JavaScript
-const API_BASE = '/api';
+const API_BASE = 'http://localhost:5000';
 
 // Utility function to show messages
 function showMessage(message, type = 'error') {
     const messageDiv = document.getElementById('message');
+    if (!messageDiv) return;
     messageDiv.textContent = message;
     messageDiv.className = type;
     messageDiv.style.display = 'block';
@@ -36,7 +37,7 @@ function logout() {
 // Login function
 async function login(email, password) {
     try {
-        const response = await fetch(`${API_BASE}/auth/login`, {
+        const response = await fetch(`${API_BASE}/api/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -63,7 +64,7 @@ async function login(email, password) {
 // Register function
 async function register(name, email, password) {
     try {
-        const response = await fetch(`${API_BASE}/auth/register`, {
+        const response = await fetch(`${API_BASE}/api/auth/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -93,7 +94,7 @@ async function getProfile() {
         const token = getToken();
         if (!token) return null;
 
-        const response = await fetch(`${API_BASE}/auth/profile`, {
+        const response = await fetch(`${API_BASE}/api/auth/profile`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -138,7 +139,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Check if user is already logged in
     if (isLoggedIn()) {
-        // Update navigation buttons
         const authButtons = document.querySelector('.auth-buttons');
         if (authButtons) {
             authButtons.innerHTML = `
@@ -168,6 +168,8 @@ function updateNavButtons() {
         if (logoutBtn) logoutBtn.style.display = 'none';
     }
 }
+
+document.addEventListener('DOMContentLoaded', updateNavButtons);
 
 // Call updateNavButtons on page load
 document.addEventListener('DOMContentLoaded', updateNavButtons);

@@ -1,5 +1,5 @@
 // Resale page JavaScript
-const API_BASE = '/api';
+const API_BASE = 'http://localhost:5000';
 
 document.addEventListener('DOMContentLoaded', function() {
     loadResaleItems();
@@ -20,7 +20,8 @@ async function loadResaleItems() {
         const category = document.getElementById('categoryFilter').value;
         const maxPrice = document.getElementById('maxPrice').value;
 
-        let url = `${API_BASE}/clothing?type=resale`;
+        // ADD /api HERE
+        let url = `${API_BASE}/api/clothing?type=resale`;
         if (category) url += `&category=${category}`;
         if (maxPrice) url += `&maxPrice=${maxPrice}`;
 
@@ -34,7 +35,8 @@ async function loadResaleItems() {
         displayItems(data);
     } catch (error) {
         console.error('Error loading resale items:', error);
-        document.getElementById('clothingList').innerHTML = `<div class="error">${error.message}</div>`;
+        document.getElementById('clothingList').innerHTML =
+          `<div class="error">${error.message}</div>`;
     }
 }
 
@@ -54,9 +56,9 @@ function displayItems(items) {
     container.innerHTML = items.map(item => `
         <div class="clothing-item">
             <div class="item-image">
-                ${item.images && item.images.length > 0 ?
-                    `<img src="${item.images[0]}" alt="${item.title}">` :
-                    '<div class="no-image">No Image</div>'}
+                ${item.images && item.images.length > 0
+                    ? `<img src="${item.images[0]}" alt="${item.title}">`
+                    : '<div class="no-image">No Image</div>'}
             </div>
             <div class="item-details">
                 <h3>${item.title}</h3>
@@ -80,7 +82,8 @@ async function buyItem(itemId) {
     if (!confirm('Are you sure you want to purchase this item?')) return;
 
     try {
-        const response = await fetch(`${API_BASE}/orders`, {
+        // ADD /api HERE
+        const response = await fetch(`${API_BASE}/api/orders`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -112,7 +115,6 @@ function showAddItemForm() {
         return;
     }
 
-    // Simple form for adding items (in a real app, this would be a modal or separate page)
     const formHtml = `
         <div class="add-item-form">
             <h3>Add Item for Sale</h3>
@@ -203,7 +205,8 @@ async function addItem() {
     };
 
     try {
-        const response = await fetch(`${API_BASE}/clothing`, {
+        // ADD /api HERE
+        const response = await fetch(`${API_BASE}/api/clothing`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
