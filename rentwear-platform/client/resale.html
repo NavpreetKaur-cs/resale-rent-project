@@ -1,53 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resale Clothing - ReVogue</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/resale.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resale Clothing - ReVogue</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/resale.css">
 </head>
 <body>
-    <!-- Top Navigation Bar -->
-    <nav class="top-nav">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <h2>ReVogue</h2>
-            </div>
-            <div class="nav-search">
-                <input type="text" placeholder="Search for clothing..." id="searchBar">
-                <button id="searchBtn">Search</button>
-            </div>
-            <div class="nav-auth">
-                <button onclick="window.location.href='index.html'">Home</button>
-                <button onclick="window.location.href='login.html'">Sign In</button>
-                <button onclick="window.location.href='register.html'">Sign Up</button>
-                <button onclick="window.location.href='profile.html'">Profile</button>
-                <button onclick="logout()">Logout</button>
-            </div>
-        </div>
-    </nav>
-    <main>
-        <div class="resale-container">
-            <h2>Resale Clothing</h2>
-            <div class="filters">
-                <select id="categoryFilter">
-                    <option value="">All Categories</option>
-                    <option value="casual">Casual</option>
-                    <option value="ethnic">Ethnic</option>
-                    <option value="wedding">Wedding</option>
-                    <option value="party">Party</option>
-                </select>
-                <input type="number" id="maxPrice" placeholder="Max Price">
-                <button id="applyFilters">Apply Filters</button>
-                <button id="addItemBtn" style="float: right;">Add Item for Sale</button>
-            </div>
-            <div id="clothingList" class="clothing-grid">
-                <div class="loading">Loading resale items...</div>
-            </div>
-        </div>
-    </main>
-    <script src="js/auth.js"></script>
-    <script src="js/resale.js"></script>
+  <!-- Top Navigation Bar -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <h2>ReVogue</h2>
+      </div>
+      <div class="nav-search">
+        <input type="text" placeholder="Search for clothing..." id="searchBar">
+        <button id="searchBtn">Search</button>
+      </div>
+      <div class="nav-auth">
+        <button onclick="window.location.href='index.html'">Home</button>
+        <button id="signin-btn" onclick="window.location.href='login.html'">Sign In</button>
+        <button id="signup-btn" onclick="window.location.href='register.html'">Sign Up</button>
+        <button id="profile-btn" style="display:none;" onclick="window.location.href='profile.html'">Profile</button>
+        <button id="logout-btn" style="display:none;" onclick="logout()">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="resale-container">
+      <h2>Resale Clothing</h2>
+      <div class="filters">
+        <select id="categoryFilter">
+          <option value="">All Categories</option>
+          <option value="casual">Casual</option>
+          <option value="ethnic">Ethnic</option>
+          <option value="wedding">Wedding</option>
+          <option value="party">Party</option>
+        </select>
+        <input type="number" id="maxPrice" placeholder="Max Price">
+        <button id="applyFilters">Apply Filters</button>
+        <button id="addItemBtn" style="float:right;" onclick="showAddItemForm()">
+              Add Item for Sale
+        </button>
+
+      </div>
+
+      <div id="clothingList" class="clothing-grid">
+        <div class="loading">Loading resale items...</div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/auth.js"></script>
+  <script src="js/resale.js"></script>
 </body>
 </html>
