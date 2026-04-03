@@ -15,9 +15,6 @@ const generateToken = (id) => {
   });
 };
 
-// @desc Register new user
-// @route POST /api/auth/register
-// @access Public
 const registerUser = async (req, res) => {
   try {
     if (!isDBConnected()) {

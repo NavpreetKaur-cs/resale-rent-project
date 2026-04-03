@@ -21,6 +21,11 @@ const placeOrder = async (req, res) => {
         const product = await Clothing.findById(productId);
         if (!product) return res.status(404).json({ message: 'Product not found' });
 
+        // Check if user is trying to buy their own product
+        if (product.seller && req.user && product.seller.toString() === req.user._id.toString()) {
+            return res.status(400).json({ message: 'You cannot purchase your own product' });
+        }
+
         if (orderType !== product.type) {
             return res.status(400).json({ message: 'Order type mismatch' });
         }
@@ -117,8 +122,34 @@ const updateOrderStatus = async (req, res) => {
     }
 };
 
+// @desc    Get orders for seller's products
+// @route   GET /api/orders/seller-orders
+// @access  Protected
+const getSellerOrders = async (req, res) => {
+    try {
+        if (!isDBConnected()) {
+            return res.status(503).json({ message: 'Database not connected. Please try again later.' });
+        }
+
+        // Find all clothing items sold by this user
+        const sellerProducts = await Clothing.find({ seller: req.user._id }).select('_id');
+        const productIds = sellerProducts.map(p => p._id);
+
+        // Find orders for those products
+        const orders = await Order.find({ product: { $in: productIds } })
+            .populate('product')
+            .populate('buyer', 'name email')
+            .sort({ createdAt: -1 });
+
+        res.json(orders);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to fetch seller orders' });
+    }
+};
+
 module.exports = {
     placeOrder,
     getUserOrders,
-    updateOrderStatus
+    updateOrderStatus,
+    getSellerOrders
 };

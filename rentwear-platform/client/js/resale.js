@@ -1,7 +1,10 @@
 // Resale page JavaScript
-const API_BASE = 'http://localhost:5000';
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Update nav buttons on page load
+  updateNavButtons();
+  updateCartCount();
+  
   loadResaleItems();
 
   // Apply filters
@@ -12,26 +15,40 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Add item button
+  // Add item button - navigate to add-item page
   const addItemBtn = document.getElementById('addItemBtn');
   if (addItemBtn) {
-    addItemBtn.addEventListener('click', function() {
-      showAddItemForm();
-    });
+    if (isLoggedIn()) {
+      addItemBtn.style.display = 'inline-block';
+    } else {
+      addItemBtn.style.display = 'none';
+    }
   }
 });
 
 async function loadResaleItems() {
   try {
     const category = document.getElementById('categoryFilter').value;
+    const type = document.getElementById('typeFilter') ? document.getElementById('typeFilter').value : 'resale';
     const maxPrice = document.getElementById('maxPrice').value;
 
-    let url = `${API_BASE}/api/clothing?type=resale`;
-    if (category) url += `&category=${category}`;
-    if (maxPrice) url += `&maxPrice=${maxPrice}`;
+    let url = `${API_BASE}/api/clothing`;
 
+    const params = new URLSearchParams();
+    if (type) params.append('type', type);
+    if (category) params.append('category', category);
+    if (maxPrice) params.append('maxPrice', maxPrice);
+
+    if ([...params].length) {
+      url += `?${params.toString()}`;
+    }
+
+    console.log('Fetching from:', url);
     const response = await fetch(url);
     const data = await response.json();
+
+    console.log('Response status:', response.status);
+    console.log('Items received:', data);
 
     if (!response.ok) {
       throw new Error(data.message || 'Failed to load items');
@@ -58,24 +75,43 @@ function displayItems(items) {
     return;
   }
 
-  container.innerHTML = items.map(item => `
+  const itemsHTML = items.map(item => {
+    const stars = '⭐'.repeat(Math.round(item.seller?.rating || 0));
+    const rating = (item.seller?.rating || 0).toFixed(1);
+    const image = item.images && item.images.length > 0
+      ? `<img src="${item.images[0]}" alt="${item.title}">`
+      : '<div class="no-image">No Image</div>';
+
+    return `
     <div class="clothing-item">
       <div class="item-image">
-        ${item.images && item.images.length > 0
-          ? `<img src="${item.images[0]}" alt="${item.title}">`
-          : '<div class="no-image">No Image</div>'}
+        ${image}
+      </div>
+      <div class="seller-header">
+        <h4>${item.seller?.name || 'Unknown Seller'}</h4>
+        <div class="seller-rating">
+          ${stars}
+          <span class="rating-text">${rating}</span>
+        </div>
       </div>
       <div class="item-details">
         <h3>${item.title}</h3>
-        <p><strong>Category:</strong> ${item.category}</p>
-        <p><strong>Size:</strong> ${item.size || 'N/A'}</p>
-        <p><strong>Price:</strong> ₹${item.price}</p>
-        <p><strong>Condition:</strong> ${item.condition}</p>
-        <p><strong>Seller:</strong> ${item.seller?.name || 'Unknown'}</p>
-        <button onclick="buyItem('${item._id}')">Buy Now</button>
+        <div class="item-info-grid">
+          <p><strong>Category:</strong> ${item.category}</p>
+          <p><strong>Size:</strong> ${item.size || 'N/A'}</p>
+          <p><strong>Condition:</strong> ${item.condition}</p>
+          <p><strong>Price:</strong> <span class="price">₹${item.price}</span></p>
+        </div>
+        <div class="item-buttons">
+          <button onclick="buyItem('${item._id}')" class="btn-buy">Buy Now</button>
+          <button onclick="addItemToCart('${item._id}', '${item.title}', ${item.price}, '${item.type}', '${item.category}')" class="btn-cart">Add to Cart</button>
+        </div>
       </div>
     </div>
-  `).join('');
+  `;
+  }).join('');
+
+  container.innerHTML = itemsHTML;
 }
 
 async function buyItem(itemId) {
@@ -113,122 +149,19 @@ async function buyItem(itemId) {
   }
 }
 
-function showAddItemForm() {
+function addItemToCart(itemId, title, price, type, category) {
   if (!isLoggedIn()) {
     window.location.href = 'login.html';
     return;
   }
 
-  const formHtml = `
-    <div class="add-item-form">
-      <h3>Add Item for Sale</h3>
-      <form id="itemForm">
-        <div class="form-group">
-          <label for="title">Item Title</label>
-          <input type="text" id="title" placeholder="Item Title" required>
-        </div>
-        <div class="form-group">
-          <label for="category">Category</label>
-          <select id="category" required>
-            <option value="">Select Category</option>
-            <option value="casual">Casual</option>
-            <option value="ethnic">Ethnic</option>
-            <option value="wedding">Wedding</option>
-            <option value="party">Party</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="type">Type</label>
-          <select id="type" required>
-            <option value="resale">Resale</option>
-            <option value="rental">Rental</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="price">Price (₹)</label>
-          <input type="number" id="price" placeholder="Price" required>
-        </div>
-        <div class="form-group">
-          <label for="deposit">Deposit (for rental)</label>
-          <input type="number" id="deposit" placeholder="Deposit (for rental)">
-        </div>
-        <div class="form-group">
-          <label for="size">Size</label>
-          <input type="text" id="size" placeholder="Size">
-        </div>
-        <div class="form-group">
-          <label for="brand">Brand</label>
-          <input type="text" id="brand" placeholder="Brand">
-        </div>
-        <div class="form-group">
-          <label for="condition">Condition</label>
-          <select id="condition">
-            <option value="new">New</option>
-            <option value="like_new">Like New</option>
-            <option value="gently_used">Gently Used</option>
-            <option value="heavily_used">Heavily Used</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="description">Description</label>
-          <textarea id="description" placeholder="Description"></textarea>
-        </div>
-        <div class="form-buttons">
-          <button type="submit">Add Item</button>
-          <button type="button" onclick="hideAddItemForm()">Cancel</button>
-        </div>
-      </form>
-    </div>
-  `;
-
-  document.body.insertAdjacentHTML('beforeend', formHtml);
-
-  document.getElementById('itemForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    await addItem();
-  });
-}
-
-function hideAddItemForm() {
-  const form = document.querySelector('.add-item-form');
-  if (form) form.remove();
-}
-
-async function addItem() {
-  const itemData = {
-    title: document.getElementById('title').value,
-    category: document.getElementById('category').value,
-    type: document.getElementById('type').value,
-    price: parseFloat(document.getElementById('price').value),
-    deposit: parseFloat(document.getElementById('deposit').value) || 0,
-    size: document.getElementById('size').value,
-    brand: document.getElementById('brand').value,
-    condition: document.getElementById('condition').value,
-    description: document.getElementById('description').value,
-    images: []
+  const item = {
+    _id: itemId,
+    title: title,
+    price: parseFloat(price),
+    type: type,
+    category: category
   };
 
-  try {
-    const response = await fetch(`${API_BASE}/api/clothing`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${getToken()}`
-      },
-      body: JSON.stringify(itemData)
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      alert('Item added successfully!');
-      hideAddItemForm();
-      loadResaleItems();
-    } else {
-      alert(data.message || 'Failed to add item');
-    }
-  } catch (error) {
-    console.error('Error adding item:', error);
-    alert('Network error. Please try again.');
-  }
+  addToCart(itemId, item);
 }

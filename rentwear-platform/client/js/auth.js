@@ -1,7 +1,5 @@
-// Authentication JavaScript
 const API_BASE = 'http://localhost:5000';
 
-// Utility function to show messages
 function showMessage(message, type = 'error') {
     const messageDiv = document.getElementById('message');
     if (!messageDiv) return;
@@ -139,13 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Check if user is already logged in
     if (isLoggedIn()) {
-        const authButtons = document.querySelector('.auth-buttons');
-        if (authButtons) {
-            authButtons.innerHTML = `
-                <button onclick="window.location.href='profile.html'">Profile</button>
-                <button onclick="logout()">Logout</button>
-            `;
-        }
+        updateNavButtons();
     }
 });
 
@@ -167,9 +159,18 @@ function updateNavButtons() {
         if (profileBtn) profileBtn.style.display = 'none';
         if (logoutBtn) logoutBtn.style.display = 'none';
     }
+
+    // Fallback for pages without ids: adjust by text content matching
+    document.querySelectorAll('.nav-auth button').forEach(btn => {
+        if (!btn.id) {
+            const text = btn.textContent.trim().toLowerCase();
+            if (text === 'sign in' || text === 'sign up') {
+                btn.style.display = isLoggedIn() ? 'none' : 'inline-block';
+            } else if (text === 'profile' || text === 'logout') {
+                btn.style.display = isLoggedIn() ? 'inline-block' : 'none';
+            }
+        }
+    });
 }
 
-document.addEventListener('DOMContentLoaded', updateNavButtons);
-
-// Call updateNavButtons on page load
 document.addEventListener('DOMContentLoaded', updateNavButtons);

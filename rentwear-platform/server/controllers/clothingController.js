@@ -18,7 +18,9 @@ const getAllClothing = async (req, res) => {
     }
 
     const { category, type, maxPrice, minPrice } = req.query;
-    let filter = {};
+    let filter = {
+      available: true  // Only show available items
+    };
 
     if (category) filter.category = category;
     if (type) filter.type = type;
@@ -27,12 +29,17 @@ const getAllClothing = async (req, res) => {
     if (minPrice) filter.price.$gte = Number(minPrice);
     if (maxPrice) filter.price.$lte = Number(maxPrice);
 
+    console.log('Fetching clothing with filter:', filter);
+
     const clothes = await Clothing.find(filter).populate(
       'seller',
       'name location rating'
-    );
+    ).sort({ createdAt: -1 });  // Show newest items first
+    
+    console.log('Found items:', clothes.length);
     res.json(clothes);
   } catch (error) {
+    console.error('Error fetching clothing:', error.message);
     res.status(500).json({ message: 'Failed to fetch clothing items' });
   }
 };
@@ -72,6 +79,9 @@ const addClothing = async (req, res) => {
         .json({ message: 'Database not connected. Please try again later.' });
     }
 
+    console.log('Adding clothing - User:', req.user ? req.user._id : 'NO USER');
+    console.log('Request body:', req.body);
+
     const {
       title,
       category,
@@ -84,6 +94,10 @@ const addClothing = async (req, res) => {
       condition,
       images,
     } = req.body;
+
+    if (!req.user) {
+      return res.status(401).json({ message: 'User not authenticated' });
+    }
 
     // Rental restrictions
     if (
@@ -107,12 +121,15 @@ const addClothing = async (req, res) => {
       condition,
       images,
       seller: req.user._id,
+      available: true  // Explicitly set available to true
     });
 
     const savedClothing = await clothing.save();
+    console.log('Clothing saved:', savedClothing._id, savedClothing.title);
     res.status(201).json(savedClothing);
   } catch (error) {
-    res.status(500).json({ message: 'Failed to add clothing item' });
+    console.error('Error adding clothing:', error.message);
+    res.status(500).json({ message: 'Failed to add clothing item', error: error.message });
   }
 };
 

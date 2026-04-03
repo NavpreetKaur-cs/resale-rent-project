@@ -1,0 +1,252 @@
+/* Profile Page Specific Styles */
+
+.profile-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+    margin: 50px auto;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.profile-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+#profileInfo {
+    margin-bottom: 30px;
+}
+
+.profile-details {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #e1e5e9;
+}
+
+.profile-details h3 {
+    margin: 0 0 20px 0;
+    color: #333;
+    font-size: 22px;
+    font-weight: 600;
+    border-bottom: 2px solid #F8BBD9;
+    padding-bottom: 10px;
+}
+
+.profile-details p {
+    margin: 12px 0;
+    color: #666;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+}
+
+.profile-details strong {
+    color: #333;
+    font-weight: 600;
+}
+
+.profile-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.profile-actions button {
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #F8BBD9 0%, #FFEB3B 100%);
+    color: #C2185B;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(248, 187, 217, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.profile-actions button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(248, 187, 217, 0.6);
+}
+
+.profile-actions button:active {
+    transform: translateY(-1px);
+}
+
+.loading {
+    text-align: center;
+    color: #666;
+    padding: 40px;
+    font-size: 16px;
+}
+
+.error {
+    color: #c00;
+    padding: 20px;
+    background: #ffe0e0;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Order Styles */
+#ordersSection, #sellerOrdersSection {
+    margin-top: 40px;
+}
+
+#ordersSection h3, #sellerOrdersSection h3 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #F8BBD9;
+    padding-bottom: 10px;
+}
+
+.order-card {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #e1e5e9;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.order-header h4 {
+    margin: 0;
+    color: #333;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.order-status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-confirmed {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.status-completed {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-returned {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.status-cancelled {
+    background: #f5c6cb;
+    color: #721c24;
+}
+
+.order-details p {
+    margin: 8px 0;
+    color: #666;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-details strong {
+    color: #333;
+    font-weight: 600;
+}
+
+.order-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn-return, .btn-confirm, .btn-complete {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-return {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-return:hover {
+    background: #c82333;
+}
+
+.btn-confirm {
+    background: #28a745;
+    color: white;
+}
+
+.btn-confirm:hover {
+    background: #218838;
+}
+
+.btn-complete {
+    background: #007bff;
+    color: white;
+}
+
+.btn-complete:hover {
+    background: #0056b3;
+}
+}
+
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 25px;
+        margin: 20px;
+    }
+
+    .profile-container h2 {
+        font-size: 22px;
+    }
+
+    .profile-actions {
+        flex-direction: column;
+    }
+
+    .profile-actions button {
+        width: 100%;
+    }
+
+    .profile-details p {
+        flex-direction: column;
+        gap: 5px;
+    }
+}

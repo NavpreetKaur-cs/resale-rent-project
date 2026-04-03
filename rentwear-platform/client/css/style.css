@@ -10,7 +10,7 @@ button {
     overflow: hidden;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    font-size: 14px;
+    font-size: 16px;
     color: #C2185B;
     background: linear-gradient(135deg, #F8BBD9 0%, #FFEB3B 100%);
     text-shadow: 1px 1px 2px rgba(255, 255, 0, 0.7);
@@ -44,7 +44,7 @@ button:active {
 .btn-primary {
     background: linear-gradient(135deg, #F8BBD9 0%, #FFEB3B 100%);
     color: #C2185B;
-    padding: 14px 28px;
+    padding: 18px 36px;
     box-shadow: 0 4px 15px rgba(248, 187, 217, 0.4);
 }
 
@@ -58,7 +58,7 @@ button:active {
 .btn-secondary {
     background: linear-gradient(135deg, #F8BBD9 0%, #FFEB3B 100%);
     color: #C2185B;
-    padding: 14px 28px;
+    padding: 18px 36px;
     box-shadow: 0 4px 15px rgba(248, 187, 217, 0.4);
 }
 
@@ -72,7 +72,7 @@ button:active {
 .btn-accent {
     background: linear-gradient(135deg, #F8BBD9 0%, #FFEB3B 100%);
     color: #333;
-    padding: 14px 28px;
+    padding: 18px 36px;
     box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
 }
 
@@ -86,7 +86,7 @@ button:active {
 .btn-danger {
     background: linear-gradient(135deg, #F8BBD9 0%, #FFEB3B 100%);
     color: #333;
-    padding: 14px 28px;
+    padding: 18px 36px;
     box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
 }
 
@@ -100,7 +100,7 @@ button:active {
 .btn-success {
     background: linear-gradient(135deg, #F8BBD9 0%, #FFEB3B 100%);
     color: #333;
-    padding: 14px 28px;
+    padding: 18px 36px;
     box-shadow: 0 4px 15px rgba(81, 207, 102, 0.4);
 }
 
@@ -123,7 +123,7 @@ button:active {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    padding: 10px 0;
+    padding: 15px 0;
 }
 
 .nav-container {
@@ -139,7 +139,7 @@ button:active {
 .nav-brand h2 {
     margin: 0;
     color: #333;
-    font-size: 24px;
+    font-size: 32px;
     font-weight: 700;
     background: linear-gradient(135deg, #F8BBD9 0%, #FFEB3B 100%);
     -webkit-background-clip: text;
@@ -156,11 +156,11 @@ button:active {
 
 .nav-search input {
     flex: 1;
-    padding: 10px 15px;
+    padding: 12px 18px;
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 25px;
     background: rgba(255, 255, 255, 0.9);
-    font-size: 14px;
+    font-size: 15px;
     outline: none;
 }
 
@@ -169,7 +169,7 @@ button:active {
 }
 
 .nav-search button {
-    padding: 10px 20px;
+    padding: 12px 25px;
     background: linear-gradient(135deg, #F8BBD9 0%, #FFEB3B 100%);
     color: #C2185B;
     border: none;
@@ -185,8 +185,8 @@ button:active {
 }
 
 .nav-auth button {
-    padding: 8px 16px;
-    font-size: 14px;
+    padding: 12px 24px;
+    font-size: 15px;
     border-radius: 25px;
     font-weight: 600;
     text-transform: none;
@@ -202,14 +202,14 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    padding-top: 80px; /* Space for fixed nav */
+    padding-top: 100px; /* Space for fixed nav */
     position: relative;
 }
 
 .heading h1 {
     color: #C2185B;
     margin-bottom: 10px;
-    font-size: 36px;
+    font-size: 48px;
     font-weight: 700;
     text-align: center;
     text-shadow: 2px 2px 4px rgba(255, 255, 0, 0.7);
@@ -225,7 +225,7 @@ body {
     color: #C2185B;
     line-height: 1.6;
     margin-bottom: 15px;
-    font-size: 16px;
+    font-size: 18px;
     text-shadow: 1px 1px 2px rgba(255, 255, 0, 0.7);
 }
 
@@ -238,13 +238,13 @@ body {
 }
 
 .action-buttons button {
-    padding: 25px 60px;
+    padding: 32px 70px;
     background: linear-gradient(135deg, #F8BBD9 0%, #FFEB3B 100%);
     color: #C2185B;
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 22px;
+    font-size: 26px;
     font-weight: 600;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 6px 20px rgba(248, 187, 217, 0.4);
@@ -1035,7 +1035,6 @@ footer {
     border-right: none;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .nav-container {
         padding: 0 15px;
@@ -1101,5 +1100,81 @@ footer {
     .action-buttons button {
         width: 100%;
         max-width: 280px;
+    }
+}
+.features-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 60px 20px;
+    flex-wrap: wrap;
+    background: linear-gradient(135deg, #f9fafc, #eef1f7);
+}
+
+.feature-box {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 25px 20px;
+    width: 270px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #9c2c53, #FFEB3B);
+}
+
+.feature-box:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.feature-box h3 {
+    margin-bottom: 12px;
+    font-size: 20px;
+    color: #222;
+}
+
+.feature-box p {
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: #C2185B;
+    line-height: 1.5;
+}
+
+.feature-box button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #ff758f, #FFEB3B);
+    color: #C2185B;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.feature-box button:hover {
+    transform: scale(1.08);
+    background: linear-gradient(135deg, #ff758f, #FFEB3B);
+}
+
+@media (max-width: 768px) {
+    .features-container {
+        padding: 40px 10px;
+    }
+
+    .feature-box {
+        width: 90%;
+        max-width: 320px;
     }
 }
