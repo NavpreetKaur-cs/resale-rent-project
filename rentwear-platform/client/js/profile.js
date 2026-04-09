@@ -69,6 +69,7 @@ async function loadUserOrders() {
                         ${order.dueDate ? `<p><strong>Due Date:</strong> ${new Date(order.dueDate).toLocaleDateString()}</p>` : ''}
                         ${order.returnDate ? `<p><strong>Return Date:</strong> ${new Date(order.returnDate).toLocaleDateString()}</p>` : ''}
                         ${order.lateFee ? `<p><strong>Late Fee:</strong> ₹${order.lateFee}</p>` : ''}
+                        ${order.ratingPoints ? `<p><strong>Rating Points Earned:</strong> ${order.ratingPoints} ⭐</p>` : ''}
                         <p><strong>Ordered:</strong> ${new Date(order.createdAt).toLocaleDateString()}</p>
                     </div>
                     ${order.orderType === 'rental' && order.status === 'confirmed' ? 
@@ -112,6 +113,8 @@ async function loadSellerOrders() {
                         ${order.dueDate ? `<p><strong>Due Date:</strong> ${new Date(order.dueDate).toLocaleDateString()}</p>` : ''}
                         ${order.returnDate ? `<p><strong>Return Date:</strong> ${new Date(order.returnDate).toLocaleDateString()}</p>` : ''}
                         ${order.lateFee ? `<p><strong>Late Fee:</strong> ₹${order.lateFee}</p>` : ''}
+                        ${order.buyerRating ? `<p><strong>Buyer Rating:</strong> ${order.buyerRating}/5 ⭐</p>` : ''}
+                        ${order.ratingPoints ? `<p><strong>Rating Points Earned:</strong> ${order.ratingPoints} ⭐</p>` : ''}
                         <p><strong>Ordered:</strong> ${new Date(order.createdAt).toLocaleDateString()}</p>
                     </div>
                     <div class="order-actions">

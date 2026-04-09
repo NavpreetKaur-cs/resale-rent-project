@@ -13,9 +13,9 @@
 
 .profile-container h2 {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
     color: #333;
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 600;
 }
 
@@ -31,21 +31,22 @@
 }
 
 .profile-details h3 {
-    margin: 0 0 20px 0;
+    margin: 0 0 25px 0;
     color: #333;
-    font-size: 22px;
+    font-size: 26px;
     font-weight: 600;
-    border-bottom: 2px solid #F8BBD9;
-    padding-bottom: 10px;
+    border-bottom: 2px solid #FFD7B3;
+    padding-bottom: 12px;
 }
 
 .profile-details p {
-    margin: 12px 0;
+    margin: 15px 0;
     color: #666;
-    font-size: 16px;
+    font-size: 18px;
     display: flex;
     justify-content: space-between;
-    padding: 8px 0;
+    padding: 10px 0;
+    line-height: 1.7;
 }
 
 .profile-details strong {
@@ -61,13 +62,13 @@
 }
 
 .profile-actions button {
-    padding: 14px 28px;
-    background: linear-gradient(135deg, #F8BBD9 0%, #FFEB3B 100%);
+    padding: 16px 32px;
+    background: linear-gradient(135deg, #FFD7B3 0%, #FFEB3B 100%);
     color: #C2185B;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(248, 187, 217, 0.4);
@@ -109,16 +110,16 @@
     color: #333;
     font-size: 24px;
     margin-bottom: 20px;
-    border-bottom: 2px solid #F8BBD9;
+    border-bottom: 2px solid #FFD7B3;
     padding-bottom: 10px;
 }
 
 .order-card {
     background: #f8f9fa;
-    padding: 20px;
+    padding: 25px;
     border-radius: 12px;
     border: 1px solid #e1e5e9;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -225,10 +226,33 @@
 .btn-complete:hover {
     background: #0056b3;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 36ec9e9 (db connectipm)
+/* Scrollable Orders Section */
+.scrollable-orders {
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 10px;
+    border-radius: 8px;
+}
+
+.scrollable-orders::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollable-orders::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 8px;
+}
+
+.scrollable-orders::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #FF9800 0%, #FFC107 100%);
+    border-radius: 8px;
+}
+
+.scrollable-orders::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #FF7043 0%, #FF9800 100%);
+}
 
 @media (max-width: 768px) {
     .profile-container {

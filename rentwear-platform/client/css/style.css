@@ -139,7 +139,7 @@ button:active {
 .nav-brand h2 {
     margin: 0;
     color: #333;
-    font-size: 32px;
+    font-size: 36px;
     font-weight: 700;
     background: linear-gradient(135deg, #F8BBD9 0%, #FFEB3B 100%);
     -webkit-background-clip: text;
@@ -156,11 +156,11 @@ button:active {
 
 .nav-search input {
     flex: 1;
-    padding: 12px 18px;
+    padding: 14px 20px;
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 25px;
     background: rgba(255, 255, 255, 0.9);
-    font-size: 15px;
+    font-size: 16px;
     outline: none;
 }
 
@@ -169,13 +169,14 @@ button:active {
 }
 
 .nav-search button {
-    padding: 12px 25px;
+    padding: 14px 30px;
     background: linear-gradient(135deg, #F8BBD9 0%, #FFEB3B 100%);
     color: #C2185B;
     border: none;
     border-radius: 25px;
     cursor: pointer;
     font-weight: 600;
+    font-size: 16px;
 }
 
 .nav-auth {
@@ -185,8 +186,8 @@ button:active {
 }
 
 .nav-auth button {
-    padding: 12px 24px;
-    font-size: 15px;
+    padding: 14px 28px;
+    font-size: 16px;
     border-radius: 25px;
     font-weight: 600;
     text-transform: none;
@@ -198,6 +199,8 @@ body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: url('../assets/images/ui/WhatsApp Image 2026-02-21 at 7.29.20 AM.jpeg') no-repeat center center fixed;
+    font-size: 18px;
+    line-height: 1.7;
     background-size: cover;
     min-height: 100vh;
     display: flex;

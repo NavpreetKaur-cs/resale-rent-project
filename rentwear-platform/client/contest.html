@@ -2,70 +2,212 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Contests</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Contests - ReVogue</title>
     <link rel="stylesheet" href="css/contest.css">
-    
-
 </head>
 <body>
-<button class="home-back-btn" onclick="goHome()">Home</button>
-<h1>🏆 Fashion Contests</h1>
 
-<!-- MAIN OPTIONS -->
-<div id="main-options">
-    <button onclick="showCreate()">Create Contest</button>
-    <button onclick="showJoin()">Join Contest</button>
-</div>
+    <!-- NAVIGATION BAR -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h2><a href="index.html" style="text-decoration: none; color: inherit;">🎨 ReVogue</a></h2>
+            </div>
 
-<hr>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link home-link">🏠 Home</a>
+                <a href="rent.html" class="nav-link">👗 Rent</a>
+                <a href="resale.html" class="nav-link">💰 Resale</a>
+                <a href="contest.html" class="nav-link active">🏆 Contests</a>
+            </div>
 
-<!-- CREATE SECTION -->
-<div id="create-section" style="display:none;">
-    <button onclick="goBack()">⬅ Back</button>
-    <h2>Create Contest</h2>
+            <div class="nav-auth">
+                <button id="cart-btn" class="btn-secondary" onclick="window.location.href='cart.html'" style="position: relative;">
+                    Cart <span id="cart-count" style="background: #ff4444; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; position: absolute; top: -5px; right: -5px; display: none;">0</span>
+                </button>
+                <button id="signin-btn" class="btn-secondary" onclick="window.location.href='login.html'">Sign In</button>
+                <button id="signup-btn" class="btn-primary" onclick="window.location.href='register.html'">Sign Up</button>
+                <button id="profile-btn" class="btn-secondary" onclick="window.location.href='profile.html'">Profile</button>
+                <button id="logout-btn" class="btn-secondary" style="display:none;" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </nav>
 
-    <input type="text" id="contestTitle" placeholder="Title">
-    <input type="text" id="theme" placeholder="Theme">
-    <input type="text" id="category" placeholder="Category">
+    <!-- HERO SECTION -->
+    <header class="contest-header warm-gradient">
+        <div class="header-content">
+            <h1>🏆 Fashion Contests</h1>
+            <p class="tagline">Showcase Your Style. Earn Recognition. Win Rewards!</p>
+            <p class="description">Join exclusive fashion contests, compete with stylish creators, and climb the leaderboard. Express yourself and get rewarded for your unique fashion sense.</p>
+        </div>
+    </header>
 
-    <select id="gender">
-        <option value="">Select Gender</option>
-        <option value="Men">Men</option>
-        <option value="Women">Women</option>
-        <option value="Others">Others</option>
-    </select>
+    <!-- MAIN CONTENT -->
+    <main class="contest-main">
+        
+        <!-- MAIN OPTIONS -->
+        <section id="main-options" class="options-section">
+            <div class="options-grid">
+                <div class="option-card" onclick="showJoin()">
+                    <div class="option-icon">👥</div>
+                    <h3>Join a Contest</h3>
+                    <p>Discover amazing contests and showcase your fashion sense</p>
+                    <button class="btn-primary">Browse Contests</button>
+                </div>
 
-    <input type="number" id="budget" placeholder="Budget">
+                <div class="option-card" onclick="showCreate()">
+                    <div class="option-icon">✨</div>
+                    <h3>Create Contest</h3>
+                    <p>Start your own contest and see who can match your vision</p>
+                    <button class="btn-primary">Create Now</button>
+                </div>
 
-    <button onclick="createContest()">Create</button>
-    
+                <div class="option-card" onclick="showYourContests()">
+                    <div class="option-icon">🎯</div>
+                    <h3>My Contests</h3>
+                    <p>Manage contests you've created and track entries</p>
+                    <button class="btn-primary">View Contests</button>
+                </div>
+            </div>
+        </section>
 
-</div>
+        <!-- CREATE SECTION -->
+        <section id="create-section" class="content-section" style="display:none;">
+            <div class="section-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>Launch Your Fashion Contest</h2>
+                <p>Create a contest and let fashion enthusiasts showcase their creativity</p>
+            </div>
 
-<div id="Your contests" style="display:none;">
-    <button onclick="goBack()">⬅ Back</button>
-    <h2>Your Contests</h2>
-    <div id="your-contests-list"></div>
-</div>
+            <div class="form-container">
+                <form onsubmit="event.preventDefault(); createContest();">
+                    <div class="form-group">
+                        <label for="contestTitle">Contest Title *</label>
+                        <input type="text" id="contestTitle" placeholder="e.g., Summer Festival Fashion" required>
+                        <small>Give your contest an engaging name</small>
+                    </div>
 
-<!-- JOIN SECTION -->
-<div id="join-section" style="display:none;">
-    <button onclick="goBack()">⬅ Back</button>
-    <h2>Available Contests</h2>
-    <div id="contest-list"></div>
+                    <div class="form-group">
+                        <label for="theme">Theme *</label>
+                        <input type="text" id="theme" placeholder="e.g., Sustainable Fashion, Vintage Vibes" required>
+                        <small>Define the contest theme or concept</small>
+                    </div>
 
-    <hr>
+                    <div class="form-group">
+                        <label for="category">Category *</label>
+                        <input type="text" id="category" placeholder="e.g., Casual, Formal, Streetwear" required>
+                        <small>Specify the clothing category</small>
+                    </div>
 
-    <h2>Submit Entry</h2>
-    <input type="file" id="imageUpload">
-    <input type="text" id="productLinks" placeholder="Links (comma separated)">
-    <button onclick="submitEntry()">Submit</button>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gender">Target Gender *</label>
+                            <select id="gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="Men">Men</option>
+                                <option value="Women">Women</option>
+                                <option value="Unisex">Unisex</option>
+                            </select>
+                        </div>
 
-    <hr>
+                        <div class="form-group">
+                            <label for="budget">Prize Budget (₹) *</label>
+                            <input type="number" id="budget" placeholder="e.g., 5000" min="100" required>
+                            <small>Budget in Indian Rupees</small>
+                        </div>
 
-    <h2>Leaderboard</h2>
-    <div id="leaderboard"></div>
-</div>
+                        <div class="form-group">
+                            <label for="maxParticipants">Max Participants</label>
+                            <input type="number" id="maxParticipants" placeholder="e.g., 50" min="1" value="999">
+                            <small>Leave blank for unlimited (default: 999)</small>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-large">🚀 Create Contest</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- JOIN SECTION -->
+        <section id="join-section" class="content-section" style="display:none;">
+            <div class="section-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>Join the Fashion Competition</h2>
+                <p>Browse available contests and submit your best entries</p>
+            </div>
+
+            <!-- Available Contests -->
+            <div class="contests-wrapper">
+                <div class="section-title">
+                    <h3>🎯 Available Contests</h3>
+                    <p>Find a contest that matches your style</p>
+                </div>
+                <div id="contest-list" class="contest-list"></div>
+            </div>
+
+            <hr class="section-divider">
+
+            <!-- Submit Entry -->
+            <div class="entry-wrapper">
+                <div class="section-title">
+                    <h3>📸 Submit Your Entry</h3>
+                    <p>Show off your fashion picks for the selected contest</p>
+                </div>
+
+                <div class="form-container">
+                    <form onsubmit="event.preventDefault(); submitEntry();">
+                        <div class="form-group">
+                            <label for="imageUpload">Upload Entry Image *</label>
+                            <div class="file-input-wrapper">
+                                <input type="file" id="imageUpload" accept="image/*" required>
+                                <p class="file-hint">JPG, PNG, or WebP • Max 5MB</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="productLinks">Product Links *</label>
+                            <input type="text" id="productLinks" placeholder="Paste links separated by commas (e.g., link1.com, link2.com)" required>
+                            <small>Add links to the clothing items in your entry</small>
+                        </div>
+
+                        <button type="submit" class="btn-primary btn-large">📤 Submit Entry</button>
+                    </form>
+                </div>
+            </div>
+
+            <hr class="section-divider">
+
+            <!-- Leaderboard -->
+            <div class="leaderboard-wrapper">
+                <div class="section-title">
+                    <h3>🎖️ Live Leaderboard</h3>
+                    <p>See top entries and cast your vote for your favorite</p>
+                </div>
+                <div id="leaderboard" class="leaderboard-container"></div>
+            </div>
+        </section>
+
+        <!-- YOUR CONTESTS SECTION -->
+        <section id="your-contests-section" class="content-section" style="display:none;">
+            <div class="section-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>Your Contests</h2>
+                <p>Manage the contests you've created</p>
+            </div>
+
+            <div id="your-contests-list" class="your-contests-list"></div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="contest-footer">
+        <p>&copy; 2026 ReVogue Fashion Platform. All rights reserved. | <a href="index.html">Home</a> | <a href="#">Privacy Policy</a></p>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="js/auth.js"></script>
+    <script src="js/contest.js"></script>
 </body>
-<script src="js/contest.js"></script>
 </html>
