@@ -17,10 +17,12 @@ app.use('/uploads', express.static('uploads'));
 const authRoutes = require('./routes/authRoutes');
 const clothingRoutes = require('./routes/clothingRoutes');
 const orderRoutes = require('./routes/orderRoutes');
+const contestRoutes = require('./routes/contestRoutes');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/clothing', clothingRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/contests', contestRoutes);
 
 // Test route
 app.get('/', (req, res) => {

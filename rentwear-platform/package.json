@@ -8,7 +8,12 @@
     "dev": "nodemon server/server.js",
     "test": "node test-api.js"
   },
-  "keywords": ["fashion", "rental", "resale", "clothing"],
+  "keywords": [
+    "fashion",
+    "rental",
+    "resale",
+    "clothing"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
@@ -19,12 +24,9 @@
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^7.1.0",
-    "mongoose": "^9.2.1"
+    "mongoose": "^9.4.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.0"
   }
-  
 }
-
-

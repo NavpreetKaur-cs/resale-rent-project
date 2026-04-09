@@ -18,7 +18,69 @@ document.addEventListener('DOMContentLoaded', function() {
             await addItem();
         });
     }
+
+    // Image preview handler
+    const imagesInput = document.getElementById('images');
+    if (imagesInput) {
+        imagesInput.addEventListener('change', handleImagePreview);
+    }
 });
+
+function handleImagePreview(event) {
+    const files = event.target.files;
+    const previewContainer = document.getElementById('imagePreview');
+    
+    if (!files.length) {
+        previewContainer.innerHTML = '';
+        return;
+    }
+
+    previewContainer.innerHTML = '';
+    
+    for (let file of files) {
+        if (file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const previewWrapper = document.createElement('div');
+                previewWrapper.className = 'image-preview-item';
+                
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                
+                const removeBtn = document.createElement('button');
+                removeBtn.type = 'button';
+                removeBtn.className = 'remove-image-btn';
+                removeBtn.innerHTML = '×';
+                removeBtn.onclick = function(e) {
+                    e.preventDefault();
+                    previewWrapper.remove();
+                    removeImageFile(file.name);
+                };
+                
+                previewWrapper.appendChild(img);
+                previewWrapper.appendChild(removeBtn);
+                previewContainer.appendChild(previewWrapper);
+            };
+            
+            reader.readAsDataURL(file);
+        }
+    }
+}
+
+function removeImageFile(fileName) {
+    const imagesInput = document.getElementById('images');
+    const dataTransfer = new DataTransfer();
+    
+    for (let file of imagesInput.files) {
+        if (file.name !== fileName) {
+            dataTransfer.items.add(file);
+        }
+    }
+    
+    imagesInput.files = dataTransfer.files;
+}
+
 
 async function addItem() {
     const itemData = {
@@ -66,8 +128,28 @@ async function addItem() {
         return;
     }
 
+    // Image validation
+    const imagesInput = document.getElementById('images');
+    if (!imagesInput.files || imagesInput.files.length === 0) {
+        showMessage('Please upload at least one image', 'error');
+        return;
+    }
+
     try {
-        console.log('Adding item:', itemData);
+        // Convert images to base64
+        showMessage('Converting images...', 'info');
+        itemData.images = await Promise.all(
+            Array.from(imagesInput.files).map(file => {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                });
+            })
+        );
+
+        console.log('Adding item with', itemData.images.length, 'images');
         
         const response = await fetch(`${API_BASE}/api/clothing`, {
             method: 'POST',
