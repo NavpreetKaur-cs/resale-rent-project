@@ -76,7 +76,7 @@ html, body {
 }
 
 .nav-link.home-link {
-    color: #F8BBD9;
+    color: #a83e6a;
     font-weight: 600;
     border-left: 2px solid #FFEB3B;
     padding-left: 15px;
@@ -107,7 +107,7 @@ html, body {
 .btn-secondary {
     background: white;
     color: #C2185B;
-    border: 2px solid #FFEB3B;
+    border: 2px;
 }
 
 .btn-secondary:hover {
@@ -129,16 +129,36 @@ html, body {
 
 /* ========== HERO SECTION ========== */
 .contest-header {
-    background: linear-gradient(135deg, #F8BBD9 0%, #F8BBD9 50%, #FFEB3B 100%);
+    background: linear-gradient(135deg, #F8BBD9 0%, #F8BBD9 50%, #ff3b90 100%);
     color: white;
     padding: 60px 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 700;
     text-align: center;
     box-shadow: 0 8px 25px rgba(248, 187, 217, 0.2);
 }
 
 .contest-header.warm-gradient {
-    background: linear-gradient(135deg, #F8BBD9 0%, #FFEB3B 50%, #FFF9C4 100%);
+    background: radial-gradient(circle at top left, #f6c0cf 0%, #ef829b 25%, #fab28bec 50%, #f08cad 75%, rgb(236, 126, 126) 100%, #b19cd9 125%);
+    background-size: 200% 200%;
+    animation: heroGradientMove 10s ease-in-out infinite alternate;
+    padding: 80px 60px;
+    border-radius: 28px;
     box-shadow: 0 8px 25px rgba(248, 187, 217, 0.25);
+}
+
+@keyframes heroGradientMove {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 100%;
+    }
 }
 
 .header-content h1 {
@@ -276,7 +296,7 @@ html, body {
 }
 
 .back-btn {
-    background: linear-gradient(135deg, #FFEB3B 0%, #FFF9C4 100%);
+    background: linear-gradient(135deg,  #f394c0 0%, #FFF9C4 100%);
     color: #C2185B;
     border: none;
     padding: 10px 20px;
