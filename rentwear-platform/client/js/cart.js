@@ -1,5 +1,5 @@
 // Cart Management JavaScript
-const CART_STORAGE_KEY = 'revogue_cart';
+const CART_STORAGE_KEY = 'revesto_cart';
 
 function getCart() {
     const cart = localStorage.getItem(CART_STORAGE_KEY);

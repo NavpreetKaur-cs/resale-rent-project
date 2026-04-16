@@ -4,7 +4,7 @@
 
 ### 1. **NAVIGATION BAR** ✅
 - Sticky navigation with smooth scrolling
-- ReVogue branding with gradient logo
+- ReVesto branding with gradient logo
 - Navigation menu with active state indicator
   - 👗 Rent
   - 💰 Resale
@@ -167,7 +167,7 @@ Features:
 
 ## 🎯 KEY FEATURES
 
-✅ Professional navigation bar matching ReVogue branding
+✅ Professional navigation bar matching ReVesto branding
 ✅ Eye-catching hero section
 ✅ Three attractive option cards
 ✅ Well-organized form sections

@@ -1,4 +1,4 @@
-# ReVogue - Clothing Rental and Resale Platform
+# ReVesto - Clothing Rental and Resale Platform
 
 A modern web platform for renting and reselling clothing sustainably.
 
@@ -12,11 +12,11 @@ A modern web platform for renting and reselling clothing sustainably.
 2. **Environment Setup:**
    - Copy `.env` file and update the values:
      ```
-     MONGO_URI=mongodb://localhost:27017/revogue
+     MONGO_URI=mongodb://localhost:27017/revesto
      JWT_SECRET=your_secure_jwt_secret_here
      ```
    - For MongoDB Atlas (cloud): Use connection string from your Atlas cluster
-   - For local MongoDB: Install MongoDB and use `mongodb://localhost:27017/revogue`
+   - For local MongoDB: Install MongoDB and use `mongodb://localhost:27017/revesto`
 
 3. **Database Setup:**
    - **Local MongoDB:** Install MongoDB Community Server and start it
