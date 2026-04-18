@@ -3,6 +3,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Update nav buttons on page load
   updateNavButtons();
+  initMobileMenu();
   updateCartCount();
   
   loadResaleItems();
@@ -165,3 +166,37 @@ function addItemToCart(itemId, title, price, type, category) {
 
   addToCart(itemId, item);
 }
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenuBtn = document.getElementById('closeMenuBtn');
+
+    if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', function() {
+            hamburgerBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('open');
+        });
+    }
+
+    if (closeMenuBtn) {
+        closeMenuBtn.addEventListener('click', function() {
+            hamburgerBtn.classList.remove('active');
+            mobileMenu.classList.remove('open');
+        });
+    }
+
+    // Close menu when a link is clicked
+    const mobileLinks = document.querySelectorAll('.mobile-menu button');
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            hamburgerBtn.classList.remove('active');
+            mobileMenu.classList.remove('open');
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.top-nav') && mobileMenu.classList.contains('open')) {
+            hamburgerBtn.classList.remove('active');
+            mobileMenu.classList.remove('open');
+        }
+    });

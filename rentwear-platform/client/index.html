@@ -24,10 +24,11 @@
                 <h2><a href="index.html" style="text-decoration: none; color: inherit;">ReVesto</a></h2>
             </div>
 
-            <div class="nav-search">
-                <input type="text" placeholder="Search for clothing..." id="searchBar">
-                <button id="searchBtn">Search</button>
-            </div>
+            <button class="hamburger" id="hamburgerBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
 
             <div class="nav-auth">
                 <button id="cart-btn" class="btn-secondary" onclick="window.location.href='cart.html'" style="position: relative;">
@@ -37,6 +38,27 @@
                 <button id="signup-btn" class="btn-primary" onclick="window.location.href='register.html'">Sign Up</button>
                 <button id="profile-btn" class="btn-secondary" onclick="window.location.href='profile.html'">Profile</button>
                 <button id="logout-btn" class="btn-secondary" style="display:none;" onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <!-- Mobile Slide Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-header">
+                <h3>Menu</h3>
+                <button class="close-menu" id="closeMenuBtn">&times;</button>
+            </div>
+            <div class="mobile-menu-content">
+                <div class="mobile-search">
+                    <input type="text" placeholder="Search for clothing..." id="mobileSearchBar">
+                    <button id="mobileSearchBtn">Search</button>
+                </div>
+                <div class="mobile-auth">
+                    <button id="mobile-cart-btn" onclick="window.location.href='cart.html'">Cart</button>
+                    <button id="mobile-signin-btn" onclick="window.location.href='login.html'">Sign In</button>
+                    <button id="mobile-signup-btn" onclick="window.location.href='register.html'">Sign Up</button>
+                    <button id="mobile-profile-btn" onclick="window.location.href='profile.html'">Profile</button>
+                    <button id="mobile-logout-btn" style="display:none;" onclick="logout()">Logout</button>
+                </div>
             </div>
         </div>
     </nav>

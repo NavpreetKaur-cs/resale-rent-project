@@ -11,7 +11,7 @@ const isDBConnected = () => {
 // Generate JWT Token
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: '7d', // token valid for 7 days
+    expiresIn: '12h', // token valid for 12 hours
   });
 };
 

@@ -11,8 +11,13 @@
     <nav class="top-nav">
         <div class="nav-container">
             <div class="nav-brand">
-                <h2>ReVesto</h2>
+                <h2><a href="index.html" style="text-decoration: none; color: inherit;">ReVesto</a></h2>
             </div>
+            <button class="hamburger" id="hamburgerBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <div class="nav-search">
                 <input type="text" placeholder="Search for clothing..." id="searchBar">
                 <button id="searchBtn">Search</button>
@@ -23,6 +28,26 @@
                 <button id="signup-btn" onclick="window.location.href='register.html'">Sign Up</button>
                 <button id="profile-btn" onclick="window.location.href='profile.html'">Profile</button>
                 <button id="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+        <!-- Mobile Slide Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-header">
+                <h3>Menu</h3>
+                <button class="close-menu" id="closeMenuBtn">&times;</button>
+            </div>
+            <div class="mobile-menu-content">
+                <div class="mobile-search">
+                    <input type="text" placeholder="Search for clothing..." id="mobileSearchBar">
+                    <button id="mobileSearchBtn">Search</button>
+                </div>
+                <div class="mobile-auth">
+                    <button onclick="window.location.href='index.html'">Home</button>
+                    <button id="mobile-signin-btn" onclick="window.location.href='login.html'">Sign In</button>
+                    <button id="mobile-signup-btn" onclick="window.location.href='register.html'">Sign Up</button>
+                    <button id="mobile-profile-btn" onclick="window.location.href='profile.html'">Profile</button>
+                    <button id="mobile-logout-btn" onclick="logout()">Logout</button>
+                </div>
             </div>
         </div>
     </nav>
