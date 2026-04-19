@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
+
 const {
   getAllContests,
   getContestById,
   createContest,
+  getYourContests,
   submitEntry,
   voteForEntry,
   getLeaderboard,
@@ -11,14 +13,18 @@ const {
   getSubmissions,
   selectWinners
 } = require('../controllers/contestController');
+
 const { protect } = require('../middleware/authMiddleware');
 
-// Public routes
-router.get('/', getAllContests);
-router.get('/:id', getContestById);
-router.get('/:id/leaderboard', getLeaderboard);
 
-// Protected routes (user must be logged in)
+router.get('/', getAllContests);
+
+
+router.get('/your-contests', protect, getYourContests);
+
+router.get('/:id/leaderboard', getLeaderboard);
+router.get('/:id', getContestById);
+
 router.post('/', protect, createContest);
 router.put('/:id', protect, updateContest);
 router.post('/:id/entries', protect, submitEntry);

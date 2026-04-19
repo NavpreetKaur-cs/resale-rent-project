@@ -1,3 +1,5 @@
+
+
 const Contest = require('../models/Contest');
 const User = require('../models/User');
 const mongoose = require('mongoose');
@@ -95,6 +97,32 @@ const createContest = async (req, res) => {
   } catch (error) {
     console.error('Error creating contest:', error.message);
     res.status(500).json({ message: 'Failed to create contest' });
+  }
+};
+// @desc Show contests created by logged-in user
+// @route GET /api/contests/your-contests
+// @access Private
+const getYourContests = async (req, res) => {
+  try {
+    if (!isDBConnected()) {
+      return res
+        .status(503)
+        .json({ message: 'Database not connected. Please try again later.' });
+    }
+
+    if (!req.user) {
+      return res.status(401).json({ message: 'User not authenticated' });
+    }
+
+    const contests = await Contest.find({ createdBy: req.user._id })
+      .populate('createdBy', 'name email')
+      .populate('entries.userId', 'name email')
+      .sort({ createdAt: -1 });
+
+    res.json(contests);
+  } catch (error) {
+    console.error('Error fetching your contests:', error.message);
+    res.status(500).json({ message: 'Failed to fetch your contests' });
   }
 };
 
@@ -423,6 +451,7 @@ module.exports = {
   getAllContests,
   getContestById,
   createContest,
+  getYourContests,
   submitEntry,
   voteForEntry,
   getLeaderboard,
