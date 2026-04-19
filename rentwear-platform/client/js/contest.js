@@ -48,7 +48,6 @@ async function loadContests() {
     }
 }
 
-// Load user's own contests
 async function loadYourContests() {
     const user = await getCurrentUser();
     if (!user) {
@@ -58,18 +57,28 @@ async function loadYourContests() {
     }
 
     try {
-        const response = await fetch(`${API_URL}/contests`);
+        const response = await fetch(`${API_URL}/contests/your-contests`, {
+            headers: {
+                Authorization: `Bearer ${getToken()}`
+            },
+            cache: "no-store"
+        });
+
         if (!response.ok) throw new Error('Failed to fetch contests');
-        
+
         const allContests = await response.json();
-        currentUserContests = allContests.filter(c => c.createdBy._id === user._id);
+
+        // ✅ no filtering needed
+        currentUserContests = allContests;
+
+        console.log("YOUR CONTESTS:", currentUserContests);
+
         displayYourContests();
     } catch (error) {
         console.error('Error loading your contests:', error);
         alert('Failed to load your contests.');
     }
 }
-
 // Display your contests
 function displayYourContests() {
     const container = document.getElementById("your-contests-list");
