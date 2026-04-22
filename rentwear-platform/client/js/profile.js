@@ -36,22 +36,22 @@ async function loadProfile() {
                 <h3>${user.name}</h3>
                 <p><strong>Email:</strong> ${user.email}</p>
                 
-                <div class="profile-field">
-                    <strong>Phone Number:</strong> 
-                    <span id="phoneDisplay">${phoneValue}</span>
-                    <button onclick="editPhoneAddress('phone')" class="btn-edit">Edit</button>
-                </div>
+                <p class="profile-field">
+    <strong>Phone Number:</strong> 
+    <span id="phoneDisplay">${phoneValue}</span>
+    <button onclick="editPhoneAddress('phone')" class="btn-edit">Edit</button>
+</p>
                 <div id="phoneEdit" style="display: none;" class="profile-field-edit">
                     <input type="tel" id="phoneInput" placeholder="Enter phone number" value="${user.phone || ''}">
                     <button onclick="savePhoneAddress('phone')" class="btn-save">Save</button>
                     <button onclick="cancelEdit('phone')" class="btn-cancel">Cancel</button>
                 </div>
                 
-                <div class="profile-field">
-                    <strong>Address:</strong> 
-                    <span id="addressDisplay">${addressValue}</span>
-                    <button onclick="editPhoneAddress('address')" class="btn-edit">Edit</button>
-                </div>
+                <p class="profile-field">
+    <strong>Address:</strong> 
+    <span id="addressDisplay">${addressValue}</span>
+    <button onclick="editPhoneAddress('address')" class="btn-edit">Edit</button>
+</p>
                 <div id="addressEdit" style="display: none;" class="profile-field-edit">
                     <input type="text" id="addressInput" placeholder="Enter address" value="${user.location || ''}">
                     <button onclick="savePhoneAddress('address')" class="btn-save">Save</button>
