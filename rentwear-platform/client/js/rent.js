@@ -95,6 +95,7 @@ function displayItems(items) {
                     <p><strong>Deposit:</strong> ₹${item.deposit}</p>
                     <p><strong>Daily Rate:</strong> <span class="price">₹${item.price}</span></p>
                 </div>
+                ${item.description ? `<div class="item-description"><p><strong>Description:</strong> ${item.description}</p></div>` : ''}
                 <div class="item-buttons">
                     <button onclick="rentItem('${item._id}')" class="btn-buy">Rent Now</button>
                     <button onclick="addItemToCart('${item._id}', '${item.title}', ${item.price}, '${item.type}', '${item.category}')" class="btn-cart">Add to Cart</button>

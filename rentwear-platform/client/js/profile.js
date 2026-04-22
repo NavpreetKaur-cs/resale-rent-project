@@ -25,11 +25,39 @@ async function loadProfile() {
             return;
         }
 
+        console.log('User data:', user); // Debug log
+        
         const profileInfo = document.getElementById('profileInfo');
+        const phoneValue = user.phone && user.phone.trim() ? user.phone : 'Not provided';
+        const addressValue = user.location && user.location.trim() ? user.location : 'Not provided';
+        
         profileInfo.innerHTML = `
             <div class="profile-details">
                 <h3>${user.name}</h3>
                 <p><strong>Email:</strong> ${user.email}</p>
+                
+                <div class="profile-field">
+                    <strong>Phone Number:</strong> 
+                    <span id="phoneDisplay">${phoneValue}</span>
+                    <button onclick="editPhoneAddress('phone')" class="btn-edit">Edit</button>
+                </div>
+                <div id="phoneEdit" style="display: none;" class="profile-field-edit">
+                    <input type="tel" id="phoneInput" placeholder="Enter phone number" value="${user.phone || ''}">
+                    <button onclick="savePhoneAddress('phone')" class="btn-save">Save</button>
+                    <button onclick="cancelEdit('phone')" class="btn-cancel">Cancel</button>
+                </div>
+                
+                <div class="profile-field">
+                    <strong>Address:</strong> 
+                    <span id="addressDisplay">${addressValue}</span>
+                    <button onclick="editPhoneAddress('address')" class="btn-edit">Edit</button>
+                </div>
+                <div id="addressEdit" style="display: none;" class="profile-field-edit">
+                    <input type="text" id="addressInput" placeholder="Enter address" value="${user.location || ''}">
+                    <button onclick="savePhoneAddress('address')" class="btn-save">Save</button>
+                    <button onclick="cancelEdit('address')" class="btn-cancel">Cancel</button>
+                </div>
+                
                 <p><strong>Reward Points:</strong> ${user.rewardPoints || 0}</p>
                 <p><strong>Wallet Balance:</strong> ₹${user.walletBalance || 0}</p>
                 <p><strong>Rating:</strong> ${user.rating || 0}/5</p>
@@ -39,6 +67,84 @@ async function loadProfile() {
     } catch (error) {
         console.error('Error loading profile:', error);
         document.getElementById('profileInfo').innerHTML = '<div class="error">Failed to load profile</div>';
+    }
+}
+
+// Edit phone or address
+function editPhoneAddress(field) {
+    if (field === 'phone') {
+        document.getElementById('phoneDisplay').style.display = 'none';
+        document.getElementById('phoneEdit').style.display = 'block';
+        document.getElementById('phoneInput').focus();
+    } else if (field === 'address') {
+        document.getElementById('addressDisplay').style.display = 'none';
+        document.getElementById('addressEdit').style.display = 'block';
+        document.getElementById('addressInput').focus();
+    }
+}
+
+// Cancel edit
+function cancelEdit(field) {
+    if (field === 'phone') {
+        document.getElementById('phoneDisplay').style.display = 'inline';
+        document.getElementById('phoneEdit').style.display = 'none';
+    } else if (field === 'address') {
+        document.getElementById('addressDisplay').style.display = 'inline';
+        document.getElementById('addressEdit').style.display = 'none';
+    }
+}
+
+// Save phone or address
+async function savePhoneAddress(field) {
+    try {
+        let updateData = {};
+        let newValue = '';
+        
+        if (field === 'phone') {
+            newValue = document.getElementById('phoneInput').value.trim();
+            updateData = { phone: newValue };
+        } else if (field === 'address') {
+            newValue = document.getElementById('addressInput').value.trim();
+            updateData = { location: newValue };
+        }
+
+        console.log('=== SAVE START ===');
+        console.log('Field:', field);
+        console.log('New Value:', newValue);
+        console.log('Update Data:', updateData);
+        console.log('Token:', getToken());
+        console.log('API Base:', API_BASE);
+
+        const response = await fetch(`${API_BASE}/api/auth/update-profile`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getToken()}`
+            },
+            body: JSON.stringify(updateData)
+        });
+
+        console.log('Response status:', response.status);
+        console.log('Response statusText:', response.statusText);
+        
+        const data = await response.json();
+        console.log('Response data:', data);
+
+        if (response.ok) {
+            console.log('Save successful, showing message and reloading profile');
+            showMessage('Saved successfully!', 'success');
+            setTimeout(async () => {
+                console.log('Reloading profile...');
+                await loadProfile();
+            }, 500);
+        } else {
+            console.error('Server error response:', data);
+            showMessage(data.message || 'Update failed');
+        }
+    } catch (error) {
+        console.error('Error updating profile:', error);
+        console.error('Error stack:', error.stack);
+        showMessage('Network error. Please try again.');
     }
 }
 
@@ -108,6 +214,7 @@ async function loadSellerOrders() {
                     </div>
                     <div class="order-details">
                         <p><strong>Buyer:</strong> ${order.buyer.name} (${order.buyer.email})</p>
+                        <p><strong>Phone:</strong> ${order.buyer.phone || 'Not provided'}</p>
                         <p><strong>Type:</strong> ${order.orderType}</p>
                         <p><strong>Amount:</strong> ₹${order.amount}</p>
                         ${order.deposit ? `<p><strong>Deposit:</strong> ₹${order.deposit}</p>` : ''}

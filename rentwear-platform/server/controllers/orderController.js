@@ -138,7 +138,7 @@ const getSellerOrders = async (req, res) => {
         // Find orders for those products
         const orders = await Order.find({ product: { $in: productIds } })
             .populate('product')
-            .populate('buyer', 'name email')
+            .populate('buyer', 'name email phone')
             .sort({ createdAt: -1 });
 
         res.json(orders);

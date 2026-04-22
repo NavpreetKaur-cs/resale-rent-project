@@ -103,6 +103,7 @@ function displayItems(items) {
           <p><strong>Condition:</strong> ${item.condition}</p>
           <p><strong>Price:</strong> <span class="price">₹${item.price}</span></p>
         </div>
+        ${item.description ? `<div class="item-description"><p><strong>Description:</strong> ${item.description}</p></div>` : ''}
         <div class="item-buttons">
           <button onclick="buyItem('${item._id}')" class="btn-buy">Buy Now</button>
           <button onclick="addItemToCart('${item._id}', '${item.title}', ${item.price}, '${item.type}', '${item.category}')" class="btn-cart">Add to Cart</button>

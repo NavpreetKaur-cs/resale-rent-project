@@ -23,7 +23,7 @@ const registerUser = async (req, res) => {
         .json({ message: 'Database not connected. Please try again later.' });
     }
 
-    const { name, email, password } = req.body;
+    const { name, email, password, phone, location } = req.body;
 
     if (!name || !email || !password) {
       return res.status(400).json({ message: 'Please fill all fields' });
@@ -45,12 +45,16 @@ const registerUser = async (req, res) => {
       name,
       email,
       password: hashedPassword,
+      phone: phone || null,
+      location: location || null,
     });
 
     res.status(201).json({
       _id: user._id,
       name: user.name,
       email: user.email,
+      phone: user.phone,
+      location: user.location,
       rewardPoints: user.rewardPoints,
       token: generateToken(user._id),
     });
@@ -71,7 +75,7 @@ const loginUser = async (req, res) => {
         .json({ message: 'Database not connected. Please try again later.' });
     }
 
-    const { email, password } = req.body;
+    const { email, password, phone, location } = req.body;
 
     const user = await User.findOne({ email });
 
@@ -82,10 +86,19 @@ const loginUser = async (req, res) => {
     if (!isMatch)
       return res.status(400).json({ message: 'Invalid credentials' });
 
+    // Update phone/location if provided during login
+    if (phone || location) {
+      if (phone) user.phone = phone;
+      if (location) user.location = location;
+      await user.save();
+    }
+
     res.json({
       _id: user._id,
       name: user.name,
       email: user.email,
+      phone: user.phone,
+      location: user.location,
       rewardPoints: user.rewardPoints,
       token: generateToken(user._id),
     });
@@ -117,8 +130,48 @@ const getProfile = async (req, res) => {
   }
 };
 
+// @desc Update user profile
+// @route PUT /api/auth/update-profile
+// @access Private
+const updateProfile = async (req, res) => {
+  try {
+    if (!isDBConnected()) {
+      return res
+        .status(503)
+        .json({ message: 'Database not connected. Please try again later.' });
+    }
+
+    const { phone, location } = req.body;
+    const update = {};
+
+    if (phone !== undefined) {
+      update.phone = phone || null;
+    }
+    if (location !== undefined) {
+      update.location = location || null;
+    }
+
+    const user = await User.findByIdAndUpdate(
+      req.user._id,
+      update,
+      { new: true }
+    ).select('-password');
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    console.log('Updated user:', user);
+    res.json(user);
+  } catch (error) {
+    console.error('Update profile error:', error);
+    res.status(500).json({ message: 'Failed to update profile' });
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
   getProfile,
+  updateProfile,
 };

@@ -593,6 +593,33 @@ footer {
     transform: translateY(0) scale(1);
 }
 
+/* Edit button in login form */
+.login-container .edit-btn {
+    width: 100%;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #FFD7B3 0%, #FFEB3B 100%);
+    color: #C2185B;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(248, 187, 217, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+.login-container .edit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(248, 187, 217, 0.6);
+}
+
+.login-container .edit-btn:active {
+    transform: translateY(0);
+}
+
 /* Profile Container */
 .profile-container {
     background: rgba(255, 255, 255, 0.95);
@@ -801,6 +828,20 @@ footer {
 .item-details p {
     margin: 5px 0;
     color: #666;
+}
+
+.item-description {
+    margin: 15px 0;
+    padding: 12px;
+    background: #f8f9fa;
+    border-left: 4px solid #FFD7B3;
+    border-radius: 4px;
+}
+
+.item-description p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 .item-details button {

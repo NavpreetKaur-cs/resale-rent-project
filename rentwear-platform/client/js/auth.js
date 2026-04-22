@@ -33,14 +33,14 @@ function logout() {
 }
 
 // Login function
-async function login(email, password) {
+async function login(email, password, phone = '', address = '') {
     try {
         const response = await fetch(`${API_BASE}/api/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({ email, password, phone, address })
         });
 
         const data = await response.json();
@@ -60,14 +60,14 @@ async function login(email, password) {
 }
 
 // Register function
-async function register(name, email, password) {
+async function register(name, email, password, phone = '', address = '') {
     try {
         const response = await fetch(`${API_BASE}/api/auth/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name, email, password })
+            body: JSON.stringify({ name, email, password, phone, address })
         });
 
         const data = await response.json();
@@ -119,7 +119,11 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            login(email, password);
+            const phoneField = document.getElementById('phone');
+            const addressField = document.getElementById('address');
+            const phone = phoneField ? phoneField.value : '';
+            const address = addressField ? addressField.value : '';
+            login(email, password, phone, address);
         });
     }
 
@@ -131,7 +135,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            register(name, email, password);
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            register(name, email, password, phone, address);
         });
     }
 
