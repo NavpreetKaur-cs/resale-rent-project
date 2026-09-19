@@ -40,6 +40,34 @@ button:active {
     transform: translateY(1px);
 }
 
+.auth-divider {
+    align-items: center;
+    color: #777;
+    display: flex;
+    gap: 12px;
+    margin: 22px 0 16px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    background: #ddd;
+    content: '';
+    flex: 1;
+    height: 1px;
+}
+
+#googleSignInButton {
+    display: flex;
+    justify-content: center;
+}
+
+.auth-help {
+    color: #777;
+    font-size: 13px;
+    min-height: 18px;
+    text-align: center;
+}
+
 /* Primary Button Style */
 .btn-primary {
     background: linear-gradient(135deg, #F8BBD9 0%, #FFEB3B 100%);

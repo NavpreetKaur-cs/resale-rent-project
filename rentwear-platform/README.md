@@ -14,6 +14,7 @@ A modern web platform for renting and reselling clothing sustainably.
      ```
      MONGO_URI=mongodb://localhost:27017/revesto
      JWT_SECRET=your_secure_jwt_secret_here
+   GOOGLE_CLIENT_ID=your_google_oauth_web_client_id
      ```
    - For MongoDB Atlas (cloud): Use connection string from your Atlas cluster
    - For local MongoDB: Install MongoDB and use `mongodb://localhost:27017/revesto`
@@ -50,6 +51,7 @@ A modern web platform for renting and reselling clothing sustainably.
 ### Authentication
 - `POST /api/auth/register` - Register new user
 - `POST /api/auth/login` - Login user
+- `POST /api/auth/google` - Sign in with a verified Google account
 - `GET /api/auth/profile` - Get user profile (protected)
 
 ### Clothing

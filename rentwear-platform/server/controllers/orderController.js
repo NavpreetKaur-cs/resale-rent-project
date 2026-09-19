@@ -93,9 +93,29 @@ const updateOrderStatus = async (req, res) => {
         }
 
         const { status } = req.body;
+        const allowedStatuses = ['pending', 'confirmed', 'completed', 'returned', 'cancelled'];
+        if (!allowedStatuses.includes(status)) {
+            return res.status(400).json({ message: 'Invalid order status' });
+        }
         const order = await Order.findById(req.params.id).populate('product');
 
         if (!order) return res.status(404).json({ message: 'Order not found' });
+
+        const sellerId = order.product && order.product.seller;
+        const isBuyer = order.buyer.toString() === req.user._id.toString();
+        const isSeller = sellerId && sellerId.toString() === req.user._id.toString();
+        if (!isBuyer && !isSeller) {
+            return res.status(403).json({ message: 'Not authorized to update this order' });
+        }
+        if (status === 'returned' && (!isBuyer || order.orderType !== 'rental')) {
+            return res.status(403).json({ message: 'Only the buyer can return a rental order' });
+        }
+        if (status === 'confirmed' && !isSeller) {
+            return res.status(403).json({ message: 'Only the seller can confirm an order' });
+        }
+        if (order.status === 'returned' || order.status === 'cancelled' || order.status === 'completed') {
+            return res.status(400).json({ message: 'This order is already closed' });
+        }
 
         // Update returnDate & lateFee if rental
         if (order.orderType === 'rental' && status === 'returned') {
@@ -110,8 +130,10 @@ const updateOrderStatus = async (req, res) => {
 
             // Make product available again
             const product = await Clothing.findById(order.product._id);
-            product.available = true;
-            await product.save();
+            if (product) {
+                product.available = true;
+                await product.save();
+            }
         }
 
         order.status = status;

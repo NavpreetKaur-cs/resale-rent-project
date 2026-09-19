@@ -3,7 +3,15 @@ const CART_STORAGE_KEY = 'revesto_cart';
 
 function getCart() {
     const cart = localStorage.getItem(CART_STORAGE_KEY);
-    return cart ? JSON.parse(cart) : [];
+    if (!cart) return [];
+    try {
+        const parsed = JSON.parse(cart);
+        return Array.isArray(parsed) ? parsed.filter(item => item && item._id) : [];
+    } catch (error) {
+        console.warn('Invalid cart data was cleared.');
+        localStorage.removeItem(CART_STORAGE_KEY);
+        return [];
+    }
 }
 
 function saveCart(cart) {
@@ -36,10 +44,11 @@ function updateCartItemQuantity(itemId, quantity) {
     const cart = getCart();
     const item = cart.find(i => i._id === itemId);
     if (item) {
-        if (quantity <= 0) {
+        quantity = Number.parseInt(quantity, 10);
+        if (!Number.isFinite(quantity) || quantity <= 0) {
             removeFromCart(itemId);
         } else {
-            item.quantity = quantity;
+            item.quantity = Math.min(quantity, 99);
             saveCart(cart);
         }
     }

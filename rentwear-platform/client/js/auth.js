@@ -59,6 +59,66 @@ async function login(email, password, phone = '', address = '') {
     }
 }
 
+async function handleGoogleCredential(response) {
+    try {
+        const result = await fetch(`${API_BASE}/api/auth/google`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ credential: response.credential })
+        });
+        const data = await result.json();
+
+        if (!result.ok) {
+            showMessage(data.message || 'Google sign-in failed');
+            return;
+        }
+
+        setToken(data.token);
+        showMessage('Google sign-in successful!', 'success');
+        setTimeout(() => {
+            window.location.href = 'profile.html';
+        }, 500);
+    } catch (error) {
+        showMessage('Network error. Please try again.');
+    }
+}
+
+async function initializeGoogleSignIn() {
+    const button = document.getElementById('googleSignInButton');
+    if (!button) return;
+
+    try {
+        const response = await fetch(`${API_BASE}/api/auth/google-client-id`);
+        const data = await response.json();
+        if (!data.clientId) {
+            document.getElementById('googleSignInHelp').textContent = 'Google sign-in is not configured yet.';
+            return;
+        }
+
+        const renderButton = () => {
+            if (!window.google?.accounts?.id) return;
+            window.google.accounts.id.initialize({
+                client_id: data.clientId,
+                callback: handleGoogleCredential
+            });
+            window.google.accounts.id.renderButton(button, {
+                theme: 'outline',
+                size: 'large',
+                text: 'signin_with',
+                width: 320
+            });
+        };
+
+        if (window.google?.accounts?.id) {
+            renderButton();
+        } else {
+            window.addEventListener('load', renderButton, { once: true });
+        }
+    } catch (error) {
+        document.getElementById('googleSignInHelp').textContent = 'Google sign-in is unavailable.';
+    }
+}
+
 // Register function
 async function register(name, email, password, phone = '', address = '') {
     try {
@@ -125,6 +185,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const address = addressField ? addressField.value : '';
             login(email, password, phone, address);
         });
+        initializeGoogleSignIn();
     }
 
     // Register form

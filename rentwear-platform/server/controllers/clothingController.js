@@ -95,8 +95,9 @@ const addClothing = async (req, res) => {
       images,
     } = req.body;
 
-    if (!req.user) {
-      return res.status(401).json({ message: 'User not authenticated' });
+    if (!req.user) return res.status(401).json({ message: 'User not authenticated' });
+    if (!title || !category || !type || !Number.isFinite(Number(price)) || Number(price) < 0) {
+      return res.status(400).json({ message: 'Valid title, category, type, and non-negative price are required' });
     }
 
     // Rental restrictions
@@ -113,8 +114,8 @@ const addClothing = async (req, res) => {
       title,
       category,
       type,
-      price,
-      deposit: type === 'rental' ? deposit : 0,
+      price: Number(price),
+      deposit: type === 'rental' ? Math.max(0, Number(deposit) || 0) : 0,
       description,
       size,
       brand,
@@ -155,12 +156,27 @@ const updateClothing = async (req, res) => {
         .json({ message: 'Not authorized to update this item' });
     }
 
-    const updates = req.body;
+    const allowedFields = ['title', 'category', 'type', 'price', 'deposit', 'description', 'size', 'brand', 'condition', 'images', 'available'];
+    const updates = Object.fromEntries(
+      Object.entries(req.body).filter(([key]) => allowedFields.includes(key))
+    );
+    if (updates.price !== undefined) {
+      updates.price = Number(updates.price);
+      if (!Number.isFinite(updates.price) || updates.price < 0) {
+        return res.status(400).json({ message: 'Price must be a non-negative number' });
+      }
+    }
+    if (updates.deposit !== undefined) {
+      updates.deposit = Number(updates.deposit);
+      if (!Number.isFinite(updates.deposit) || updates.deposit < 0) {
+        return res.status(400).json({ message: 'Deposit must be a non-negative number' });
+      }
+    }
 
     // Prevent rental category abuse
     if (
-      updates.type === 'rental' &&
-      !(updates.category === 'ethnic' || updates.category === 'wedding')
+      (updates.type || clothing.type) === 'rental' &&
+      !((updates.category || clothing.category) === 'ethnic' || (updates.category || clothing.category) === 'wedding')
     ) {
       return res.status(400).json({
         message: 'Rental only allowed for ethnic or wedding category',
